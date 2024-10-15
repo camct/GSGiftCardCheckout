@@ -1,10 +1,3 @@
-#someTargetElementId {
-    width: 200px;
-    height: 100px;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-}
-
 .custom-popup {
     position: absolute;
     background-color: #e6ffe6; /* Light green background */
