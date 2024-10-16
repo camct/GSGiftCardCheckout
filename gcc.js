@@ -1,8 +1,16 @@
+let popupInstance = null; // Declare popupInstance in the global scope
+
 Ecwid.onAPILoaded(function() {
     Ecwid.onPageLoaded(function(page) {
         function createPopup(targetElementSelector) {
             console.log('Creating popup for selector:', targetElementSelector);
         
+            // Check if popup is already open
+            if (popupInstance) {
+                console.log('Popup is already open');
+                return; // Exit the function if popup is already open
+            }
+
             const targetElement = document.querySelector(targetElementSelector);
             if (targetElement) {
                 console.log('Target element found:', targetElement);
@@ -13,7 +21,10 @@ Ecwid.onAPILoaded(function() {
                 const closeButton = document.createElement('button');
                 closeButton.className = 'custom-popup-close';
                 closeButton.innerHTML = '&times;';
-                closeButton.onclick = () => popup.remove();
+                closeButton.onclick = () => {
+                    popup.remove();
+                    popupInstance = null; // Reset the popup instance when closed
+                };
         
                 popup.innerHTML = `
                 <div>
@@ -24,6 +35,7 @@ Ecwid.onAPILoaded(function() {
                 popup.appendChild(closeButton);
         
                 document.body.appendChild(popup);
+                popupInstance = popup; // Set the popup instance
         
                 function positionPopup() {
                     console.log('Positioning popup');
@@ -67,7 +79,9 @@ Ecwid.onAPILoaded(function() {
         console.log('category ID:', currCategoryID);
         if (categoryID == currCategoryID) {
             const target = '.details-product-purchase__controls';
-            document.querySelector(target).addEventListener('click', createPopup(target));
+            document.querySelector(target).addEventListener('click', function() {
+                createPopup(target);
+            });
         }
     });
 });

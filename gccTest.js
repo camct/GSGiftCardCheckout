@@ -1,6 +1,12 @@
 function createPopup(targetElementSelector) {
     console.log('Creating popup for selector:', targetElementSelector);
 
+    // Check if popup is already open
+    if (popupInstance) {
+        console.log('Popup is already open');
+        return; // Exit the function if popup is already open
+    }
+
     const targetElement = document.querySelector(targetElementSelector);
     if (targetElement) {
         console.log('Target element found:', targetElement);
@@ -11,7 +17,10 @@ function createPopup(targetElementSelector) {
         const closeButton = document.createElement('button');
         closeButton.className = 'custom-popup-close';
         closeButton.innerHTML = '&times;';
-        closeButton.onclick = () => popup.remove();
+        closeButton.onclick = () => {
+            popup.remove();
+            popupInstance = null; // Reset the popup instance when closed
+        };
 
         popup.innerHTML = `
         <div>
@@ -22,6 +31,7 @@ function createPopup(targetElementSelector) {
         popup.appendChild(closeButton);
 
         document.body.appendChild(popup);
+        popupInstance = popup; // Set the popup instance
 
         function positionPopup() {
             const rect = targetElement.getBoundingClientRect();
@@ -59,11 +69,16 @@ function createPopup(targetElementSelector) {
     }
 }
 
+let popupInstance = null;
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM fully loaded');
 
-    // Call createPopup with the correct selector
-    document.getElementById('someTargetElementId').addEventListener('click', function(event) {
-        createPopup('#someTargetElementId');
-    });
+    // Example of how to call createPopup when a button is clicked
+    const button = document.getElementById('someTargetElementId');
+    if (button) {
+        button.addEventListener('click', function() {
+            createPopup('#someTargetElementId');
+        });
+    }
 });
