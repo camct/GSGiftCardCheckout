@@ -1,7 +1,7 @@
 let popupInstance = null; // Declare popupInstance in the global scope
 
-Ecwid.onAPILoaded(function() {
-    Ecwid.onPageLoaded(function(page) {
+Ecwid.OnAPILoaded(function() {
+    Ecwid.OnPageLoaded(function(page) {
         function createPopup(targetElementSelector) {
             console.log('Creating popup for selector:', targetElementSelector);
         
