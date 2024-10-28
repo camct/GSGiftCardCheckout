@@ -11,6 +11,7 @@
     max-width: 90%; /* Fallback for older browsers */
     max-width: min(400px, 90vw);
     width: 100%;
+    color:black;
 
     /* Center content both horizontally and vertically */
     display: flex;
