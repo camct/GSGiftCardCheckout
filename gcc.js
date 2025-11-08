@@ -75,9 +75,10 @@ Ecwid.OnAPILoaded.add(function() {
         }
 
         const categoryID = 28816028;
+        const canadaCategoryID = 191095255;
         const currCategoryID = page.categoryId;
         console.log('category ID:', currCategoryID);
-        if (categoryID == currCategoryID) {
+        if (categoryID == currCategoryID || canadaCategoryID == currCategoryID) {
             const target = '.details-product-purchase__controls';
             document.querySelector(target).addEventListener('click', function() {
                 createPopup(target);
